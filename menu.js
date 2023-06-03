@@ -1,4 +1,44 @@
 
+function clear_canvas() {
+  // remove player sprites
+  if (player) {
+    player.remove()
+    playerGun.remove()
+    player2.remove()
+    player2Gun.remove()
+    separator.remove()
+    playerHealth.remove()
+    player2Health.remove()
+  }
+
+  for (foodItem of food) {
+    foodItem.remove()
+  }
+
+  food = []
+
+  for (bulletType of Object.keys(bullets)) {
+    for (bullet of bullets[bulletType]) {
+      bullet.remove()
+    }
+  }
+
+  bullets = {
+    player1: [],
+    player2: []
+  }
+
+  player = null
+  previous = []
+  player2 = null
+  previous2 = []
+  direction = ''
+  direction2 = ''
+  playerHealth = null
+  player2Health = null
+}
+
+
 function menu() {
   background(bg, 200)
 
@@ -10,8 +50,8 @@ function menu() {
   pop()
 
   if (kb.presses("/")) {
-    option = "single_player"
     start()
+    option = "single_player"
   }
 }
 
@@ -23,7 +63,9 @@ function single_player() {
   print(playerGun.level)
   
   if (kb.presses("/")) {
-    start()
+    clear_canvas()
+    option = "menu"
+    return
   }
 
   push()
@@ -59,12 +101,11 @@ function single_player() {
 
   
   if (playerHealth.health < 0) {
-    alert("💀 blud lost to a bot")
-    start()
+    clear_canvas()
+    option = "menu"
   }
-
-  if (player2Health.health < 0) {
-    alert("Player 1 wins!")
-    start()
+  else if (player2Health.health < 0) {
+    clear_canvas()
+    option = "menu"
   }
 }

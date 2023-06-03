@@ -44,40 +44,7 @@ function draw() {
 function start() {
   frameCount = 0
 
-  // remove player sprites
-  if (player) {
-    player.remove()
-    playerGun.remove()
-    player2.remove()
-    player2Gun.remove()
-    separator.remove()
-    playerHealth.remove()
-    player2Health.remove()
-  }
-
-  for (bulletType of Object.keys(bullets)) {
-    for (bullet of bullets[bulletType]) {
-      print(bullets[bulletType].length)
-      bullet.remove()
-    }
-  }
-
-  bullets = {
-    player1: [],
-    player2: []
-  }
-
-  alert("Player 1: WASD to move, Q/E to rotate gun, F to rewind\
-  \nPlayer 2: IJKL to move, O to rotate gun, Backspace to rewind\
-  \nPress / to restart")
-
-  player = null
-  previous = [];
-  player2 = null
-  previous2 = []
-  separator = null
-  direction = ''
-  direction2 = ''
+  clear_canvas()
 
   player = new Sprite(width/4, height/2)
   player.r = 25
