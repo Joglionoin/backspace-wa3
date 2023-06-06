@@ -15,11 +15,11 @@ function player_movement() {
     else circle(width/4, height/2, 10)
     pop()
 
+    previous2.push([player2.x, player2.y]);
     push()
     fill(255, 0, 0, 20)
     stroke(255, 0, 0)
     strokeWeight(2)
-    previous2.push([player2.x, player2.y]);
     if (frameCount > 180) {
         fill(255, 0, 0, 20)
         circle(previous2[0][0], previous2[0][1], 10)
@@ -78,20 +78,53 @@ function player_movement() {
     playerHealth.y = player.y - 50
 
     // player 2 movement
-    
-    npc_movement()
-    // rewind to dodge bullets
-    for (bullet of bullets.player1) {
-        if (dist(player2.x, player2.y, bullet.x, bullet.y) < 75 && dist(previous2[0][0], previous2[0][1], bullet.x, bullet.y) > 150) {
+    if (option == "two_player") {
+        direction2 = ''
+        if (kb.pressing("i")) direction2 += 'up'
+
+        if (kb.pressing("k")) {
+            if (kb.pressing('i')) direction2 = ''
+            else direction2 += 'down'
+        }
+
+        if (kb.pressing("j")) direction2 += 'left'
+        
+        if (kb.pressing("l")) {
+            if (kb.pressing('j')) direction2 = direction2.replace('left', '')
+            else direction2 += 'right'
+        }
+
+        player2.rotation = 0
+        if (direction2 != '') player2.move(5, direction2, 3)
+        
+        if (kb.presses('backspace')) {
             player2.x = previous2[0][0]
             player2.y = previous2[0][1]
 
             teleport.play()
 
-            break
+        }
+
+        // player 1 gun rotation
+        if (kb.pressing("o")) player2Gun.rotate(15, 3)
+        
+        if (kb.pressing("u")) player2Gun.rotate(-15, 3)
+    }
+    else {
+        npc_movement()
+
+        // rewind to dodge bullets
+        for (bullet of bullets.player1) {
+            if (dist(player2.x, player2.y, bullet.x, bullet.y) < 75 && dist(previous2[0][0], previous2[0][1], bullet.x, bullet.y) > 150) {
+                player2.x = previous2[0][0]
+                player2.y = previous2[0][1]
+
+                teleport.play()
+
+                break
+            }
         }
     }
-    
     
     if (player2.x > width + 25) player2.x = -25;
     
@@ -101,7 +134,7 @@ function player_movement() {
     
     if (player2.y < -25) player2.y = height + 25;
     
-    if (frameCount % 60 == 0) shoot(player2Gun)
+    shoot(player2Gun)
     
     player2Gun.x = player2.x
     player2Gun.y = player2.y

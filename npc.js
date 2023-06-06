@@ -13,7 +13,7 @@ function npc_movement() {
 }
 
 function spawn_food() {
-    if (frameCount % 10 == 0 && food.length < 180) {
+    if (frameCount % 30 == 0 && food.length < 60) {
         food.push(new Sprite(random(0, width), random(0, height), 15, 15))
         food[food.length - 1].color = "lime"
         food[food.length - 1].layer = 1
@@ -32,8 +32,8 @@ function spawn_food() {
                 food[i].life = 0
             }
             else if (food[i].collides(player2)) {
-                player2Health.health += 100
-                player2Gun.level += 1
+                player2Health.health += 200
+                player2Gun.level += 2
                 food[i].life = 0
             }
         }

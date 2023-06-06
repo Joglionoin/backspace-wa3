@@ -38,7 +38,7 @@ function setup() {
 
 function draw() {
   if (option == "menu") menu()
-  else if (option == "single_player") single_player()
+  else if (option == "single_player" || option == "two_player") game()
 }
 
 function start() {
@@ -63,7 +63,8 @@ function start() {
   playerHealth.color = "red"
   playerHealth.layer = 100
   playerHealth.stroke = "black"
-  playerHealth.health = 200
+  if (option == "single_player") playerHealth.health = 200
+  else if (option == "two_player") playerHealth.health = 3000
 
   player2 = new Sprite(width*3/4, height/2,)
   player2.r = 25
