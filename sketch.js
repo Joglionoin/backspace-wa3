@@ -34,6 +34,7 @@ function preload() {
   bg_music.setVolume(0.1)
 
   lost = loadSound('sounds/sad.wav')
+  lost.setVolume(0.2)
 
   win = loadSound('sounds/win.wav')
 
@@ -45,8 +46,16 @@ function setup() {
 }
 
 function draw() {
-  if (option == "menu") menu()
-  else if (option == "single_player" || option == "two_player") game()
+  if (option == "menu") {
+    menu()
+    if (!bg_music.isPlaying()) bg_music.loop()
+  }
+  else if (option == "single_player" || option == "two_player") {
+    game()
+    if (bg_music.isPlaying()) bg_music.stop()
+  }
+
+
 }
 
 function start() {

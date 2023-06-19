@@ -43,15 +43,8 @@ let alpha2 = 128
 
 let winner
 
-let background_playing = false
-
 function menu() {
   background(bg, 200)
-
-  if (!background_playing) {
-    bg_music.loop()
-    background_playing = true
-  }
 
   push()
   fill(0, 255, 0)
@@ -112,11 +105,6 @@ IJKL to move\nUO to rotate\nBackspace to rewind\n\
 
 function game() {
   background(bg, 100)
-
-  if (background_playing) {
-    bg_music.stop()
-    background_playing = false
-  }
 
   // print health of players
   print("player1: " + playerHealth.health + " player2: " + player2Health.health)
