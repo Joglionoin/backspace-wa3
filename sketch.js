@@ -29,6 +29,14 @@ function preload() {
 
   hit_marker_sound = loadSound('sounds/hit_marker.mp3')
 
+  // musics
+  bg_music = loadSound('sounds/main_menu.wav')
+  bg_music.setVolume(0.1)
+
+  lost = loadSound('sounds/sad.wav')
+
+  win = loadSound('sounds/win.wav')
+
 }
 
 function setup() {
